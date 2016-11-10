@@ -1,0 +1,72 @@
+###########
+### GIT ###
+###########
+
+# get the current branch name
+function __git__branch_name {
+    echo $(git symbolic-ref HEAD 2>/dev/null | awk -Frefs\/heads\/ '{print $NF}')
+    #echo $(git symbolic-ref HEAD 2>/dev/null | awk -F\/ '{print $NF}')
+}
+
+# check & get the formatted branch name
+function __git__dirty {
+    status=$(git status 2> /dev/null | tail -n 1)
+    if [[ $status != "nothing to commit" ]]; then
+        echo $COLOR_MAGENTA$(__git__branch_name)$COLOR_YELLOW
+    else
+        echo $(__git__branch_name)
+    fi
+}
+
+# check & get if you have unpulled changes
+function __git__unpulled {
+    logdiff=$(git log HEAD..origin/$(__git__branch_name) --oneline 2> /dev/null) || return
+    if [[ $logdiff != "" ]]; then
+        echo "("$COLOR_MAGENTA"’git pull origin $(__git__branch_name)’"$COLOR_YELLOW" required)"
+    fi
+}
+
+# check & get if you have unpushed changes
+function __git__unpushed {
+    logdiff=$(git log origin/$(__git__branch_name)..HEAD --oneline 2> /dev/null) || return
+    if [[ $logdiff != "" ]]; then
+        echo "("$COLOR_MAGENTA"’git push origin $(__git__branch_name)’"$COLOR_YELLOW" required)"
+    fi
+}
+
+# check & get if you need to create a new branch
+function __git__new_branch {
+    brinfo=$(git branch -r | grep "origin/"$(__git__branch_name))
+    if [[ $brinfo == "" ]]; then
+        echo "("$COLOR_RED"new branch"$COLOR_YELLOW" | "$COLOR_MAGENTA"’git push origin $(__git__branch_name)’"$COLOR_YELLOW" required)"
+    fi
+}
+
+# get the status of current branch
+function __git__status {
+    unpulled=$(__git__unpulled)
+    unpushed=$(__git__unpushed)
+    newbrach=$(__git__new_branch)
+    
+    if [[ $newbrach != "" ]]; then
+        echo $newbrach
+    fi
+    
+    if [[ $unpulled != "" && $unpushed != "" ]]; then
+        echo "("$RED"’git push origin $(__git__branch_name) --force’"$COLOR_YELLOW" required)"
+    else
+        if [[ $unpulled != "" ]]; then
+            echo $unpulled
+        fi
+        
+        if [[ $unpushed != "" ]]; then
+            echo $unpushed
+        fi
+    fi
+}
+
+# compose a useful string containing git information
+function gitify {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    echo -e "\n[GIT branch: $(__git__dirty)] $(__git__status)"
+}

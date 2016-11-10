@@ -123,73 +123,9 @@ function java__use_jdk {
 ### GIT ###
 ###########
 
-# get the current branch name
-function __git__branch_name {
-    echo $(git symbolic-ref HEAD 2>/dev/null | awk -Frefs\/heads\/ '{print $NF}')
-    #echo $(git symbolic-ref HEAD 2>/dev/null | awk -F\/ '{print $NF}')
-}
-
-# check & get the formatted branch name
-function __git__dirty {
-    status=$(git status 2> /dev/null | tail -n 1)
-    if [[ $status != "nothing to commit, working tree clean" ]]; then
-        echo $COLOR_MAGENTA$(__git__branch_name)$COLOR_YELLOW
-    else
-        echo $(__git__branch_name)
-    fi
-}
-
-# check & get if you have unpulled changes
-function __git__unpulled {
-    logdiff=$(git log HEAD..origin/$(__git__branch_name) --oneline 2> /dev/null) || return
-    if [[ $logdiff != "" ]]; then
-        echo "("$COLOR_MAGENTA"’git pull origin $(__git__branch_name)’"$COLOR_YELLOW" required)"
-    fi
-}
-
-# check & get if you have unpushed changes
-function __git__unpushed {
-    logdiff=$(git log origin/$(__git__branch_name)..HEAD --oneline 2> /dev/null) || return
-    if [[ $logdiff != "" ]]; then
-        echo "("$COLOR_MAGENTA"’git push origin $(__git__branch_name)’"$COLOR_YELLOW" required)"
-    fi
-}
-
-# check & get if you need to create a new branch
-function __git__new_branch {
-    brinfo=$(git branch -r | grep "origin/"$(__git__branch_name))
-    if [[ $brinfo == "" ]]; then
-        echo "("$COLOR_RED"new branch"$COLOR_YELLOW" | "$COLOR_MAGENTA"’git push origin $(__git__branch_name)’"$COLOR_YELLOW" required)"
-    fi
-}
-
-# get the status of current branch
-function __git__status {
-    unpulled=$(__git__unpulled)
-    unpushed=$(__git__unpushed)
-    newbrach=$(__git__new_branch)
-    
-    if [[ $newbrach != "" ]]; then
-        echo $newbrach
-    fi
-    
-    if [[ $unpulled != "" && $unpushed != "" ]]; then
-        echo "("$RED"’git push origin $(__git__branch_name) --force’"$COLOR_YELLOW" required)"
-    else
-        if [[ $unpulled != "" ]]; then
-            echo $unpulled
-        fi
-        
-        if [[ $unpushed != "" ]]; then
-            echo $unpushed
-        fi
-    fi
-}
-
 # compose a useful string containing git information
 function gitify {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    echo -e "\n[GIT branch: $(__git__dirty)] $(__git__status)"
+    echo ""
 }
 
 # Bash Completions
@@ -201,34 +137,9 @@ function gitify {
 ### SVN ###
 ###########
 
-# get the current branch name
-function __svn__branch_name {
-    url=$(svn info | grep "^URL" | awk '{print $NF}')
-    repository_root=$(svn info | grep "^Repository Root" | awk '{print $NF}')
-    
-    # relative_url
-    echo "${url/$repository_root/^}"
-}
-
-function __svn__untracked_files {
-  new_files=$(svn status | grep "?" | awk '{print $NF}')
-  echo $new_files
-}
-
-# check & get the formatted branch name
-function __svn__dirty {
-    status=$(svn status 2> /dev/null | tail -n 1)
-    if [[ $status != "" ]]; then
-        echo $COLOR_MAGENTA$(__svn__branch_name)$COLOR_YELLOW
-    else
-        echo $(__svn__branch_name)
-    fi
-}
-
 # compose a useful string containing svn information
 function svnify {
-    ref=$(svn info 2> /dev/null) || return
-    echo -e "\n[SVN branch: $(__svn__dirty)] "
+    echo ""
 }
 
 # Bash Completions

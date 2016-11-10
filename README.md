@@ -8,25 +8,34 @@ This is a collection of bash utilities. It contains:
 - [ ] Pygmentize
 
 
-### Get started
+## Get started
 
-Download this project in your home folder.
+Clone this project in your home folder `~`.
 
 ```sh
-# with SSH
+# clone with SSH
 cd ~ && git clone git@github.com:marcomontalbano/bash_profile.git
 
-# with HTTPS
+# OR
+
+# clone with HTTPS
 cd ~ && git clone https://github.com/marcomontalbano/bash_profile.git
 ```
 
-Open your `.bash_profile` and add the following script at top of it.
+Open and modify your `~/.bash_profile`, add the following scripts at top of it.
 
 ```sh
+# base import
 source ~/bash_profile/.bash_profile
+
+# PS1 customization with Git integration
+source ~/bash_profile/.bash_profile__git
+
+# PS1 customization with Svn integration
+source ~/bash_profile/.bash_profile__svn
 ```
 
-### Git and Svn completion
+## Git and Svn completion
 
 If you want to use the git and svn completion, just run following scripts.
 

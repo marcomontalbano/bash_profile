@@ -1,0 +1,33 @@
+###########
+### SVN ###
+###########
+
+# get the current branch name
+function __svn__branch_name {
+    url=$(svn info | grep "^URL" | awk '{print $NF}')
+    repository_root=$(svn info | grep "^Repository Root" | awk '{print $NF}')
+    
+    # relative_url
+    echo "${url/$repository_root/^}"
+}
+
+function __svn__untracked_files {
+  new_files=$(svn status | grep "?" | awk '{print $NF}')
+  echo $new_files
+}
+
+# check & get the formatted branch name
+function __svn__dirty {
+    status=$(svn status 2> /dev/null | tail -n 1)
+    if [[ $status != "" ]]; then
+        echo $COLOR_MAGENTA$(__svn__branch_name)$COLOR_YELLOW
+    else
+        echo $(__svn__branch_name)
+    fi
+}
+
+# compose a useful string containing svn information
+function svnify {
+    ref=$(svn info 2> /dev/null) || return
+    echo -e "\n[SVN branch: $(__svn__dirty)] "
+}
