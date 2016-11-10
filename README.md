@@ -1,3 +1,7 @@
+![](https://img.shields.io/badge/available_for-osx-green.svg?style=flat-square)
+![](https://img.shields.io/badge/available_for-ubuntu-green.svg?style=flat-square)
+![](https://img.shields.io/badge/available_for-windows-red.svg?style=flat-square)
+
 # .bash_profile
 
 This is a collection of bash utilities. It contains:
@@ -22,7 +26,7 @@ cd ~ && git clone git@github.com:marcomontalbano/bash_profile.git
 cd ~ && git clone https://github.com/marcomontalbano/bash_profile.git
 ```
 
-Open and modify your `~/.bash_profile`, add the following scripts at top of it.
+Open and modify your `~/.bash_profile` on OSX or `~/.bashrc` on Ubuntu, adding the following scripts.
 
 ```sh
 # base import
@@ -36,7 +40,7 @@ source ~/bash_profile/.bash_profile__svn
 ```
 
 
-## Git and Svn completion
+## Git and Svn completion (OSX only)
 
 If you want to use the git and svn completion, just run following scripts.
 
@@ -47,3 +51,19 @@ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-com
 # Bash Completion for SVN
 curl http://svn.apache.org/repos/asf/subversion/trunk/tools/client-side/bash_completion -o ~/.bash_completion_svn
 ```
+
+## PS1 customization
+
+![](images/PS1.png)
+
+### Git integration
+
+![](images/git--no-changes.png)
+
+![](images/git--with-changes.png)
+
+![](images/git--new-branch-no-changes--text.png)
+![](images/git--new-branch-no-changes-pushed.png)
+
+![](images/git--new-branch-with-changes--text.png)
+![](images/git--new-branch-with-changes-pushed.png)
