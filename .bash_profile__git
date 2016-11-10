@@ -11,7 +11,7 @@ function __git__branch_name {
 # check & get the formatted branch name
 function __git__dirty {
     status=$(git status 2> /dev/null | tail -n 1)
-    if [[ $status != "nothing to commit" ]]; then
+    if [[ $status != "nothing to commit, working tree clean" && $status != "nothing to commit, working directory clean"  ]]; then
         echo $COLOR_MAGENTA$(__git__branch_name)$COLOR_YELLOW
     else
         echo $(__git__branch_name)
