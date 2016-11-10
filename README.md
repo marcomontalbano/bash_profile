@@ -13,7 +13,11 @@ This is a collection of bash utilities. It contains:
 Download this project in your home folder.
 
 ```sh
+# with SSH
 cd ~ && git clone git@github.com:marcomontalbano/bash_profile.git
+
+# with HTTPS
+cd ~ && git clone https://github.com/marcomontalbano/bash_profile.git
 ```
 
 Open your `.bash_profile` and add the following script at top of it.
