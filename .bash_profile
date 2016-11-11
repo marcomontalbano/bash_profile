@@ -72,6 +72,16 @@ alias flush__dns="dscacheutil -flushcache"
 ### UTILITY ###
 ###############
 
+# bash_profile update
+function bash_profile__update {
+    git -C $(dirname "$BASH_SOURCE") pull -r
+}
+
+# bash_profile move to project folder
+function bash_profile__cd {
+    cd $(dirname "$BASH_SOURCE")
+}
+
 # set the console title
 function console__set_title {
     title="$1"

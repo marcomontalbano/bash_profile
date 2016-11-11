@@ -9,6 +9,7 @@ This is a collection of bash utilities. It contains:
 - [x] PS1 customization with Git and Svn integration.
 - [x] Bash Completions for Git and Svn.
 - [x] set/unset proxy faster.
+- [x] Updatable `bash_profile` project.
 - [ ] Pygmentize
 
 
