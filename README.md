@@ -54,6 +54,27 @@ curl http://svn.apache.org/repos/asf/subversion/trunk/tools/client-side/bash_com
 ```
 
 
+## Utilities
+
+Below a list of utilities that you can use on command line or your own .bash_profile.
+
+- **bash_profile__reload** - reload your `.bash_profile`.
+
+- **bash_profile__update** - update the `bash_profile` project with latest changes. Is "just" a `git pull` :smile:
+
+- **bash_profile__cd** - `cd` to the `bash_profile` folder. Something like `cd ~/bash_profile`
+
+- **console__set_title** - set a console title. (tested only for the Terminal App on Mac OSX)
+
+- **cli__is_installed** - check if a program is installed on your system. *`cli__is_installed node` will return `true` if node is installed on your system, `false` otherwise.*
+
+- **proxy__set** - simply set the command line proxy. It works also for npm, if you use it. *usage: `proxy__set http://domain:8080`*
+
+- **proxy__unset** - simply unset the command line proxy.
+
+- **java__use_jdk** - if you work with different version of JDK, you can easily switch with `java__use_jdk 1.8`
+
+
 ## PS1 customization
 
 PS1 is customized with multiple lines.

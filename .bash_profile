@@ -72,19 +72,19 @@ alias flush__dns="dscacheutil -flushcache"
 ### UTILITY ###
 ###############
 
+# bash_profile reload profile
+function bash_profile__reload {
+    source ~/.bash_profile
+}
+
 # bash_profile update
 function bash_profile__update {
-    git -C $(dirname "$BASH_SOURCE") pull -r
+    git -C $(dirname "$BASH_SOURCE") pull -r && bash_profile__reload
 }
 
 # bash_profile move to project folder
 function bash_profile__cd {
     cd $(dirname "$BASH_SOURCE")
-}
-
-# bash_profile reload profile
-function bash_profile__reload {
-    source ~/.bash_profile
 }
 
 # set the console title (OSX Terminal only)
@@ -98,23 +98,6 @@ function cli__is_installed {
     local is_installed=true
     type $1 >/dev/null 2>&1 || { local is_installed=false; }
     echo "$is_installed"
-}
-
-# proxy - unset
-function proxy__unset {
-    unset HTTP_PROXY
-    unset HTTPS_PROXY
-    unset http_proxy
-    unset https_proxy
-
-    npm_installed=$(cli__is_installed npm)
-    if [[ $npm_installed == true ]]; then
-        unset npm_config_proxy
-        unset npm_config_https_proxy
-
-        sudo npm config delete proxy
-        sudo npm config delete https-proxy
-    fi
 }
 
 # proxy - set
@@ -131,6 +114,23 @@ function proxy__set {
 
         sudo npm config set proxy $HTTP_PROXY
         sudo npm config set https-proxy $HTTPS_PROXY
+    fi
+}
+
+# proxy - unset
+function proxy__unset {
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset http_proxy
+    unset https_proxy
+
+    npm_installed=$(cli__is_installed npm)
+    if [[ $npm_installed == true ]]; then
+        unset npm_config_proxy
+        unset npm_config_https_proxy
+
+        sudo npm config delete proxy
+        sudo npm config delete https-proxy
     fi
 }
 
