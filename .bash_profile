@@ -82,10 +82,22 @@ function bash_profile__cd {
     cd $(dirname "$BASH_SOURCE")
 }
 
-# set the console title
+# bash_profile reload profile
+function bash_profile__reload {
+    source ~/.bash_profile
+}
+
+# set the console title (OSX Terminal only)
 function console__set_title {
     title="$1"
     trap 'echo -ne "\033]0;"$title"\007"' DEBUG
+}
+
+# check if a program is installed. (true or false returns)
+function cli__is_installed {
+    local is_installed=true
+    type $1 >/dev/null 2>&1 || { local is_installed=false; }
+    echo "$is_installed"
 }
 
 # proxy - unset
@@ -95,11 +107,14 @@ function proxy__unset {
     unset http_proxy
     unset https_proxy
 
-    unset npm_config_proxy
-    unset npm_config_https_proxy
+    npm_installed=$(cli__is_installed npm)
+    if [[ $npm_installed == true ]]; then
+        unset npm_config_proxy
+        unset npm_config_https_proxy
 
-    #sudo npm config delete proxy
-    #sudo npm config delete https-proxy
+        sudo npm config delete proxy
+        sudo npm config delete https-proxy
+    fi
 }
 
 # proxy - set
@@ -109,11 +124,14 @@ function proxy__set {
     export http_proxy=$HTTP_PROXY
     export https_proxy=$HTTPS_PROXY
 
-    export npm_config_proxy=$HTTP_PROXY
-    export npm_config_https_proxy=$HTTPS_PROXY
+    npm_installed=$(cli__is_installed npm)
+    if [[ $npm_installed == true ]]; then
+        export npm_config_proxy=$HTTP_PROXY
+        export npm_config_https_proxy=$HTTPS_PROXY
 
-    #sudo npm config set proxy $HTTP_PROXY
-    #sudo npm config set https-proxy $HTTPS_PROXY
+        sudo npm config set proxy $HTTP_PROXY
+        sudo npm config set https-proxy $HTTPS_PROXY
+    fi
 }
 
 

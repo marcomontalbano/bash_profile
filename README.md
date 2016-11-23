@@ -53,18 +53,34 @@ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-com
 curl http://svn.apache.org/repos/asf/subversion/trunk/tools/client-side/bash_completion -o ~/.bash_completion_svn
 ```
 
+
 ## PS1 customization
+
+PS1 is customized with multiple lines.
+
+1. green label - you can fetch the **pwd** path.
+1. yellow label _(optional)_ - it appear inside Git or Svn folders.
+1. cyan label - you have the **username** @ **hostname**
 
 ![](images/PS1.png)
 
+
 ### Git integration
 
+_there are **no** changes on the active **master** branch_
 ![](images/git--no-changes.png)
 
+_there are changes on the active **master** branch, but not committed yet_
 ![](images/git--with-changes.png)
 
+_you have created a **new-branch**, but not pushed yet_
 ![](images/git--new-branch-no-changes--text.png)
+
+_you have created and pushed a **new-branch**_
 ![](images/git--new-branch-no-changes-pushed.png)
 
+_you have created a **new-branch** with some changes, but not committed and pushed yet_
 ![](images/git--new-branch-with-changes--text.png)
+
+_you have pushed the **new-branch**, but it has other changes to commit_
 ![](images/git--new-branch-with-changes-pushed.png)
