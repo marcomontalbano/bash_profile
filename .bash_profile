@@ -157,7 +157,7 @@ function gitify {
 }
 
 # Bash Completions
-[[ -r "$HOME/.bash_completion_git" ]] && source ~/.bash_completion_git
+[[ -r "$HOME/bash_profile/.bash_completion_git" ]] && source ~/bash_profile/.bash_completion_git
 
 
 
@@ -171,7 +171,16 @@ function svnify {
 }
 
 # Bash Completions
-[[ -r "$HOME/.bash_completion_svn" ]] && source ~/.bash_completion_svn
+[[ -r "$HOME/bash_profile/.bash_completion_svn" ]] && source ~/bash_profile/.bash_completion_svn
+
+
+
+###########
+### SSH ###
+###########
+
+# Bash Completions
+[[ -r "$HOME/bash_profile/.bash_completion_ssh" ]] && source ~/bash_profile/.bash_completion_ssh
 
 
 
