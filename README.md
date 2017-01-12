@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/available_for-osx-green.svg?style=flat-square)
 ![](https://img.shields.io/badge/available_for-ubuntu-green.svg?style=flat-square)
-![](https://img.shields.io/badge/available_for-windows-red.svg?style=flat-square)
+![](https://img.shields.io/badge/available_for-windows-green.svg?style=flat-square)
 
 # .bash_profile
 
@@ -27,21 +27,17 @@ cd ~ && git clone git@github.com:marcomontalbano/bash_profile.git
 cd ~ && git clone https://github.com/marcomontalbano/bash_profile.git
 ```
 
-Open and modify your `~/.bash_profile` on OSX or `~/.bashrc` on Ubuntu, adding the following scripts.
+Open and modify your `~/.bash_profile` on OS X and Windows or `~/.bashrc` on Ubuntu, adding the following script.
 
 ```sh
-# base import
+# https://github.com/marcomontalbano/bash_profile
 source ~/bash_profile/.bash_profile
-
-# PS1 customization with Git integration
-source ~/bash_profile/.bash_profile__git
-
-# PS1 customization with Svn integration
-source ~/bash_profile/.bash_profile__svn
 ```
 
 
-## Git and Svn completion (OSX only)
+## Completions
+
+The following procedure works for OS X. If you are using Windows or Ubuntu, you don't need it. 
 
 If you want to use the git, svn and ssh completion, just run following scripts.
 
@@ -67,7 +63,7 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 
 - **bash_profile__cd** - `cd` to the `bash_profile` folder. Something like `cd ~/bash_profile`
 
-- **console__set_title** - set a console title. (tested only for the Terminal App on Mac OSX)
+- **console__set_title** - set a console title.
 
 - **cli__is_installed** - check if a program is installed on your system. *`cli__is_installed node` will return `true` if node is installed on your system, `false` otherwise.*
 
@@ -75,7 +71,7 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 
 - **proxy__unset** - simply unset the command line proxy.
 
-- **java__use_jdk** - if you work with different version of JDK, you can easily switch with `java__use_jdk 1.8`
+- **java__use_jdk** - if you work with different version of JDK, you can easily switch with `java__use_jdk 1.8`. (only for OS X)
 
 
 ## PS1 customization

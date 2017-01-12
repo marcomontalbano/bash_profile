@@ -74,7 +74,8 @@ alias flush__dns="dscacheutil -flushcache"
 
 # bash_profile reload profile
 function bash_profile__reload {
-    source ~/.bash_profile
+    [[ -r "$HOME/.bash_profile" ]] && source ~/.bash_profile
+    [[ -r "$HOME/.bashrc" ]] && source ~/.bashrc
 }
 
 # bash_profile update
@@ -112,8 +113,8 @@ function proxy__set {
         export npm_config_proxy=$HTTP_PROXY
         export npm_config_https_proxy=$HTTPS_PROXY
 
-        sudo npm config set proxy $HTTP_PROXY
-        sudo npm config set https-proxy $HTTPS_PROXY
+        npm config set proxy $HTTP_PROXY
+        npm config set https-proxy $HTTPS_PROXY
     fi
 }
 
@@ -129,8 +130,8 @@ function proxy__unset {
         unset npm_config_proxy
         unset npm_config_https_proxy
 
-        sudo npm config delete proxy
-        sudo npm config delete https-proxy
+        npm config delete proxy
+        npm config delete https-proxy
     fi
 }
 
@@ -156,6 +157,8 @@ function gitify {
     echo ""
 }
 
+[[ $(cli__is_installed git) == true ]] && source ~/bash_profile/.bash_profile__git
+
 # Bash Completions
 [[ -r "$HOME/bash_profile/.bash_completion_git" ]] && source ~/bash_profile/.bash_completion_git
 
@@ -169,6 +172,8 @@ function gitify {
 function svnify {
     echo ""
 }
+
+[[ $(cli__is_installed svn) == true ]] && source ~/bash_profile/.bash_profile__svn
 
 # Bash Completions
 [[ -r "$HOME/bash_profile/.bash_completion_svn" ]] && source ~/bash_profile/.bash_completion_svn
