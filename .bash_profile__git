@@ -53,7 +53,7 @@ function __git__status {
     fi
     
     if [[ $unpulled != "" && $unpushed != "" ]]; then
-        echo "("$RED"’git push origin $(__git__branch_name) --force’"$COLOR_YELLOW" required)"
+        echo "("$COLOR_RED"’git push origin $(__git__branch_name) --force’"$COLOR_YELLOW" required)"
     else
         if [[ $unpulled != "" ]]; then
             echo $unpulled
