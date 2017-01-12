@@ -105,16 +105,25 @@ function cli__is_installed {
 function proxy__set {
     export HTTP_PROXY=$1
     export HTTPS_PROXY=$HTTP_PROXY
+
+    if [[ -n $2 ]]; then
+        export HTTPS_PROXY=$2
+    fi
+
     export http_proxy=$HTTP_PROXY
     export https_proxy=$HTTPS_PROXY
 
-    npm_installed=$(cli__is_installed npm)
-    if [[ $npm_installed == true ]]; then
+    if [[ $(cli__is_installed npm) == true ]]; then
         export npm_config_proxy=$HTTP_PROXY
         export npm_config_https_proxy=$HTTPS_PROXY
 
         npm config set proxy $HTTP_PROXY
         npm config set https-proxy $HTTPS_PROXY
+    fi
+
+    if [[ $(cli__is_installed apm) == true ]]; then
+        apm config set http-proxy $HTTP_PROXY
+        apm config set https-proxy $HTTPS_PROXY
     fi
 }
 
@@ -125,13 +134,17 @@ function proxy__unset {
     unset http_proxy
     unset https_proxy
 
-    npm_installed=$(cli__is_installed npm)
-    if [[ $npm_installed == true ]]; then
+    if [[ $(cli__is_installed npm) == true ]]; then
         unset npm_config_proxy
         unset npm_config_https_proxy
 
         npm config delete proxy
         npm config delete https-proxy
+    fi
+
+    if [[ $(cli__is_installed apm) == true ]]; then
+        apm config delete http-proxy
+        apm config delete https-proxy
     fi
 }
 
