@@ -208,8 +208,10 @@ function svnify {
 
 function set_bash_prompt {
     PS1="\n\[$COLOR_GREEN\][\w]\[$COLOR_YELLOW\] $(gitify) $(svnify) \n\[$COLOR_CYAN\][\u@\h \$] \[$COLOR_RED\]> \[$COLOR_NORMAL\]"
+    $PROMPT_COMMAND_OLD
 }
 
+PROMPT_COMMAND_OLD=$PROMPT_COMMAND
 PROMPT_COMMAND=set_bash_prompt
 
 
