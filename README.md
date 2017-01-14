@@ -67,7 +67,7 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 
 - **cli__is_installed** - check if a program is installed on your system. *`cli__is_installed node` will return `true` if node is installed on your system, `false` otherwise.*
 
-- **proxy__set** - simply set the command line proxy. It works also for npm, if you use it. *usage: `proxy__set http://domain:8080`*
+- **proxy__set** - simply set the command line proxy. It works also for npm and apm, if you use them. *usage: `proxy__set http://domain:8080` or `proxy__set http://domain:8080 https://domain:8080`*
 
 - **proxy__unset** - simply unset the command line proxy.
 
