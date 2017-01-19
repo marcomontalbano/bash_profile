@@ -80,7 +80,7 @@ function bash_profile__reload {
 
 # bash_profile update
 function bash_profile__update {
-    git -C $(dirname "$BASH_SOURCE") pull -r && bash_profile__reload
+    git -C $(dirname "$BASH_SOURCE") checkout . && git -C $(dirname "$BASH_SOURCE") pull -r && bash_profile__reload
 }
 
 # bash_profile move to project folder
@@ -206,13 +206,11 @@ function svnify {
 ### PS1 ###
 ###########
 
-function set_bash_prompt {
+function bash_profile__set_prompt {
     PS1="\n\[$COLOR_GREEN\][\w]\[$COLOR_YELLOW\] $(gitify) $(svnify) \n\[$COLOR_CYAN\][\u@\h \$] \[$COLOR_RED\]> \[$COLOR_NORMAL\]"
-    $PROMPT_COMMAND_OLD
 }
 
-PROMPT_COMMAND_OLD=$PROMPT_COMMAND
-PROMPT_COMMAND=set_bash_prompt
+export PROMPT_COMMAND="bash_profile__set_prompt; $PROMPT_COMMAND"
 
 
 
