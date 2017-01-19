@@ -72,6 +72,11 @@ alias flush__dns="dscacheutil -flushcache"
 ### UTILITY ###
 ###############
 
+# bash_profile get version
+function bash_profile__version {
+    cat ~/bash_profile/VERSION
+}
+
 # bash_profile reload profile
 function bash_profile__reload {
     [[ -r "$HOME/.bash_profile" ]] && source ~/.bash_profile

@@ -57,6 +57,8 @@ curl https://gist.githubusercontent.com/marcomontalbano/7c48f6756e4e4133c30fdb8e
 
 Below a list of utilities that you can use on command line or your own .bash_profile.
 
+- **bash_profile__version** - get current version.
+
 - **bash_profile__reload** - reload your `.bash_profile`.
 
 - **bash_profile__update** - update the `bash_profile` project with latest changes. Is "just" a `git pull` :smile:
