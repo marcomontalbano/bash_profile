@@ -7,7 +7,7 @@
 This is a collection of bash utilities. It contains:
 
 - [x] PS1 customization with Git and Svn integration.
-- [x] Bash Completions for Git, Svn and SSH.
+- [x] Bash Completions for Git, Svn, SSH and SFTP.
 - [x] set/unset proxy faster.
 - [x] Updatable `bash_profile` project.
 - [ ] Pygmentize
@@ -48,7 +48,7 @@ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-com
 # Bash Completion for SVN
 curl http://svn.apache.org/repos/asf/subversion/trunk/tools/client-side/bash_completion -o ~/bash_profile/.bash_completion_svn
 
-# Bash Completion for SSH
+# Bash Completion for SSH and SFTP
 curl https://gist.githubusercontent.com/marcomontalbano/7c48f6756e4e4133c30fdb8e1fff3100/raw -o ~/bash_profile/.bash_completion_ssh
 ```
 
