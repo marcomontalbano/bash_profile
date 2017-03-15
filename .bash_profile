@@ -159,7 +159,7 @@ function proxy__unset {
 ### JAVA ###
 ############
 
-# set JAVA_HOME ( ex:. java--use-jdk 1.8 )
+# set JAVA_HOME ( ex:. java__use_jdk 1.8 )
 function java__use_jdk {
     export JAVA_HOME=$(/usr/libexec/java_home -v $@)
 }
