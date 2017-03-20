@@ -33,7 +33,7 @@ SETAF_MAGENTA=$(tput setaf 5)
 SETAF_CYAN=$(tput setaf 6)
 SETAF_GRAY=$(tput setaf 7)
 
-# 
+#
 COLOR_ESC="\033"
 COLOR_NORMAL=$COLOR_ESC"[0;0m"
 COLOR_RED=$COLOR_ESC"[0;31m"
@@ -122,14 +122,14 @@ function proxy__set {
         export npm_config_proxy=$HTTP_PROXY
         export npm_config_https_proxy=$HTTPS_PROXY
 
-        npm config set proxy $HTTP_PROXY
-        npm config set https-proxy $HTTPS_PROXY
+        #npm config set proxy $HTTP_PROXY
+        #npm config set https-proxy $HTTPS_PROXY
     fi
 
-    if [[ $(cli__is_installed apm) == true ]]; then
-        apm config set http-proxy $HTTP_PROXY
-        apm config set https-proxy $HTTPS_PROXY
-    fi
+    #if [[ $(cli__is_installed apm) == true ]]; then
+    #    apm config set http-proxy $HTTP_PROXY
+    #    apm config set https-proxy $HTTPS_PROXY
+    #fi
 }
 
 # proxy - unset
@@ -143,14 +143,14 @@ function proxy__unset {
         unset npm_config_proxy
         unset npm_config_https_proxy
 
-        npm config delete proxy
-        npm config delete https-proxy
+        #npm config delete proxy
+        #npm config delete https-proxy
     fi
 
-    if [[ $(cli__is_installed apm) == true ]]; then
-        apm config delete http-proxy
-        apm config delete https-proxy
-    fi
+    #if [[ $(cli__is_installed apm) == true ]]; then
+    #    apm config delete http-proxy
+    #    apm config delete https-proxy
+    #fi
 }
 
 
