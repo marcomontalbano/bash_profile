@@ -8,6 +8,18 @@ function __git__branch_name {
     #echo $(git symbolic-ref HEAD 2>/dev/null | awk -F\/ '{print $NF}')
 }
 
+# get the current remote name (http://stackoverflow.com/a/24210877)
+function __git__remote_name {
+    remote_name=$(git branch -vv --no-color | grep -E '^\*' | awk '{print $4}' | awk -F "[" '{print $2}' | awk -F "/" '{print $1}')
+    if [[ $remote_name != "" ]]; then
+        echo $remote_name
+    else
+        echo "origin"
+    fi
+    #echo $(git symbolic-ref HEAD 2>/dev/null | awk -Frefs\/heads\/ '{print $NF}')
+    #echo $(git symbolic-ref HEAD 2>/dev/null | awk -F\/ '{print $NF}')
+}
+
 # check & get the formatted branch name
 function __git__dirty {
     status=$(git status 2> /dev/null | tail -n 1)
@@ -20,25 +32,26 @@ function __git__dirty {
 
 # check & get if you have unpulled changes
 function __git__unpulled {
-    logdiff=$(git log HEAD..origin/$(__git__branch_name) --oneline 2> /dev/null) || return
+    logdiff=$(git log HEAD..$(__git__remote_name)/$(__git__branch_name) --oneline 2> /dev/null) || return
     if [[ $logdiff != "" ]]; then
-        echo "("$COLOR_MAGENTA"'git pull origin $(__git__branch_name)'"$COLOR_YELLOW" required)"
+        echo "("$COLOR_MAGENTA"'git pull $(__git__remote_name) $(__git__branch_name)'"$COLOR_YELLOW" required)"
     fi
 }
 
 # check & get if you have unpushed changes
 function __git__unpushed {
-    logdiff=$(git log origin/$(__git__branch_name)..HEAD --oneline 2> /dev/null) || return
+    logdiff=$(git log $(__git__remote_name)/$(__git__branch_name)..HEAD --oneline 2> /dev/null) || return
     if [[ $logdiff != "" ]]; then
-        echo "("$COLOR_MAGENTA"'git push origin $(__git__branch_name)'"$COLOR_YELLOW" required)"
+        echo "("$COLOR_MAGENTA"'git push $(__git__remote_name) $(__git__branch_name)'"$COLOR_YELLOW" required)"
     fi
 }
 
 # check & get if you need to create a new branch
 function __git__new_branch {
-    brinfo=$(git branch -r | grep "origin/"$(__git__branch_name))
+    brinfo=$(git branch -r | grep "$(__git__remote_name)/"$(__git__branch_name))
+    
     if [[ $brinfo == "" ]]; then
-        echo "("$COLOR_RED"new branch"$COLOR_YELLOW" | "$COLOR_MAGENTA"'git push origin $(__git__branch_name)'"$COLOR_YELLOW" required)"
+        echo "("$COLOR_RED"new branch"$COLOR_YELLOW" | "$COLOR_MAGENTA"'git push $(__git__remote_name) $(__git__branch_name)'"$COLOR_YELLOW" required)"
     fi
 }
 
@@ -53,7 +66,7 @@ function __git__status {
     fi
     
     if [[ $unpulled != "" && $unpushed != "" ]]; then
-        echo "("$COLOR_RED"'git push origin $(__git__branch_name) --force'"$COLOR_YELLOW" required)"
+        echo "("$COLOR_RED"'git push $(__git__remote_name) $(__git__branch_name) --force'"$COLOR_YELLOW" required)"
     else
         if [[ $unpulled != "" ]]; then
             echo $unpulled
@@ -68,5 +81,5 @@ function __git__status {
 # compose a useful string containing git information
 function gitify {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    echo -e "\n[GIT branch: $(__git__dirty)] $(__git__status)"
+    echo -e "\n[GIT $(__git__remote_name) $(__git__dirty)] $(__git__status)"
 }

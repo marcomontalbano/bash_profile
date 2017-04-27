@@ -96,13 +96,13 @@ _there are changes on the active **master** branch, but not committed yet_
 ![](images/git--with-changes.png)
 
 _you have created a **new-branch**, but not pushed yet_
-![](images/git--new-branch-no-changes--text.png)
+![](images/git--new-branch-no-changes.png)
 
 _you have created and pushed a **new-branch**_
 ![](images/git--new-branch-no-changes-pushed.png)
 
 _you have created a **new-branch** with some changes, but not committed and pushed yet_
-![](images/git--new-branch-with-changes--text.png)
+![](images/git--new-branch-with-changes.png)
 
 _you have pushed the **new-branch**, but it has other changes to commit_
 ![](images/git--new-branch-with-changes-pushed.png)
