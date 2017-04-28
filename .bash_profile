@@ -68,6 +68,24 @@ alias flush__dns="dscacheutil -flushcache"
 
 
 
+#####################
+### SPLASH SCREEN ###
+#####################
+
+function bash_profile__splash_screen {
+    echo;
+    echo -e "    _             _                     __ _ _         "
+    echo -e "   | |__  __ _ __| |_     _ __ _ _ ___ / _(_) |___     "
+    echo -e "  _| '_ \/ _\` (_-\< ' \   | '_ \\ '_/ _ \  _| | / -_) "
+    echo -e " (_)_.__/\__,_/__/_||_|__| .__/_| \___/_| |_|_\___|    "
+    echo -e "                     |___|_|                           "
+    echo -e "                                              "$(bash_profile__version)
+    echo;
+    echo 
+}
+
+
+
 ###############
 ### UTILITY ###
 ###############
@@ -85,7 +103,14 @@ function bash_profile__reload {
 
 # bash_profile update
 function bash_profile__update {
-    git -C $(dirname "$BASH_SOURCE") checkout . && git -C $(dirname "$BASH_SOURCE") pull -r && bash_profile__reload
+    message=`git -C $(dirname "$BASH_SOURCE") checkout . && git -C $(dirname "$BASH_SOURCE") pull -r`
+    if [[ $message == *"is up to date"* ]]; then
+        echo -e "$COLOR_ALT_CYAN"".bash_profile""$COLOR_CYAN"": version $(bash_profile__version) is the latest one.""$COLOR_NORMAL"
+    else
+        echo -e "$COLOR_ALT_GREEN"".bash_profile""$COLOR_GREEN"": has been updated to version $(bash_profile__version).""$COLOR_NORMAL"
+        echo;
+        bash_profile__reload
+    fi
 }
 
 # bash_profile move to project folder
@@ -228,3 +253,18 @@ export SVN_EDITOR="vim"
 export EDITOR="vim"
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
+
+
+
+###############
+### GETOPTS ###
+###############
+
+OPTIND=1
+while getopts "w" OPT; do
+    case $OPT in
+        w)
+            bash_profile__splash_screen
+            ;;
+    esac
+done
