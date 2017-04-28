@@ -81,7 +81,7 @@ function bash_profile__splash_screen {
     echo -e "                     |___|_|                           "
     echo -e "                                              "$(bash_profile__version)
     echo;
-    echo 
+    echo;
 }
 
 
@@ -90,6 +90,11 @@ function bash_profile__splash_screen {
 ### UTILITY ###
 ###############
 
+#
+function bash_profile__path {
+    echo $(dirname "$BASH_SOURCE")
+}
+
 # bash_profile get version
 function bash_profile__version {
     cat ~/bash_profile/VERSION
@@ -97,25 +102,29 @@ function bash_profile__version {
 
 # bash_profile reload profile
 function bash_profile__reload {
-    [[ -r "$HOME/.bash_profile" ]] && source ~/.bash_profile
-    [[ -r "$HOME/.bashrc" ]] && source ~/.bashrc
+    #[[ -r "$HOME/.bash_profile" ]] && source ~/.bash_profile
+    #[[ -r "$HOME/.bashrc" ]] && source ~/.bashrc
+    source $(bash_profile__path)/.bash_profile
 }
 
 # bash_profile update
 function bash_profile__update {
-    message=`git -C $(dirname "$BASH_SOURCE") checkout . && git -C $(dirname "$BASH_SOURCE") pull -r`
+    message=`git -C $(bash_profile__path) checkout . && git -C $(bash_profile__path) pull -r`
     if [[ $message == *"is up to date"* ]]; then
-        echo -e "$COLOR_ALT_CYAN"".bash_profile""$COLOR_CYAN"": version $(bash_profile__version) is the latest one.""$COLOR_NORMAL"
-    else
-        echo -e "$COLOR_ALT_GREEN"".bash_profile""$COLOR_GREEN"": has been updated to version $(bash_profile__version).""$COLOR_NORMAL"
         echo;
-        bash_profile__reload
+        echo -e "$COLOR_ALT_CYAN""----------------------"
+        echo -e "$COLOR_ALT_CYAN""BASH_PROFILE"
+        echo -e "$COLOR_CYAN""no update available"
+        echo -e "$COLOR_ALT_CYAN""----------------------"
+        echo -e "$COLOR_NORMAL"
+    else
+        touch $(bash_profile__path)/UPDATED
     fi
 }
 
 # bash_profile move to project folder
 function bash_profile__cd {
-    cd $(dirname "$BASH_SOURCE")
+    cd $(bash_profile__path)
 }
 
 # set the console title (OSX Terminal only)
@@ -203,7 +212,7 @@ function gitify {
 [[ $(cli__is_installed git) == true ]] && source ~/bash_profile/.bash_profile__git
 
 # Bash Completions
-[[ -r "$HOME/bash_profile/.bash_completion_git" ]] && source ~/bash_profile/.bash_completion_git
+[[ -r "$(bash_profile__path)/.bash_completion_git" ]] && source ~/bash_profile/.bash_completion_git
 
 
 
@@ -219,7 +228,7 @@ function svnify {
 [[ $(cli__is_installed svn) == true ]] && source ~/bash_profile/.bash_profile__svn
 
 # Bash Completions
-[[ -r "$HOME/bash_profile/.bash_completion_svn" ]] && source ~/bash_profile/.bash_completion_svn
+[[ -r "$(bash_profile__path)/.bash_completion_svn" ]] && source ~/bash_profile/.bash_completion_svn
 
 
 
@@ -228,7 +237,7 @@ function svnify {
 ###########
 
 # Bash Completions
-[[ -r "$HOME/bash_profile/.bash_completion_ssh" ]] && source ~/bash_profile/.bash_completion_ssh
+[[ -r "$(bash_profile__path)/.bash_completion_ssh" ]] && source ~/bash_profile/.bash_completion_ssh
 
 
 
@@ -236,11 +245,24 @@ function svnify {
 ### PS1 ###
 ###########
 
-function bash_profile__set_prompt {
+function __bash_profile__check_updates {
+    if [[ -f $(bash_profile__path)/UPDATED ]]; then
+        bash_profile__reload
+        echo;
+        echo -e "$COLOR_ALT_GREEN""---------------------------"
+        echo -e "$COLOR_ALT_GREEN""BASH_PROFILE"
+        echo -e "$COLOR_GREEN""updated to version $(bash_profile__version)"
+        echo -e "$COLOR_ALT_GREEN""---------------------------"
+        echo -e "$COLOR_NORMAL"
+        rm $(bash_profile__path)/UPDATED
+    fi
+}
+
+function __bash_profile__set_prompt {
     PS1="\n\[$COLOR_GREEN\][\w]\[$COLOR_YELLOW\] $(gitify) $(svnify) \n\[$COLOR_CYAN\][\u@\h \$] \[$COLOR_RED\]> \[$COLOR_NORMAL\]"
 }
 
-export PROMPT_COMMAND="bash_profile__set_prompt; $PROMPT_COMMAND"
+export PROMPT_COMMAND="__bash_profile__check_updates; __bash_profile__set_prompt; $PROMPT_COMMAND"
 
 
 
@@ -261,10 +283,13 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 ###############
 
 OPTIND=1
-while getopts "w" OPT; do
+while getopts "wu" OPT; do
     case $OPT in
         w)
             bash_profile__splash_screen
+            ;;
+        u)
+            (bash_profile__update > /dev/null 2>&1 &)
             ;;
     esac
 done
