@@ -109,7 +109,9 @@ function bash_profile__update {
         echo -e "$COLOR_ALT_CYAN""----------------------"
         echo -e "$COLOR_NORMAL"
     else
-        echo $message > $(bash_profile__path)/UPDATED
+        if [[ $message != "" ]]; then
+            echo $message > $(bash_profile__path)/UPDATED
+        fi
     fi
 }
 
