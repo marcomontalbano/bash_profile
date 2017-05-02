@@ -18,12 +18,6 @@ This is a collection of bash utilities. It contains:
 Clone this project in your home folder `~`.
 
 ```sh
-# clone with SSH
-cd ~ && git clone git@github.com:marcomontalbano/bash_profile.git
-
-# OR
-
-# clone with HTTPS
 cd ~ && git clone https://github.com/marcomontalbano/bash_profile.git
 ```
 
@@ -31,8 +25,13 @@ Open and modify your `~/.bash_profile` on OS X and Windows or `~/.bashrc` on Ubu
 
 ```sh
 # https://github.com/marcomontalbano/bash_profile
-source ~/bash_profile/.bash_profile
+source ~/bash_profile/.bash_profile -u
 ```
+
+### Options
+
+- `-u`: enables self-update for bash_profile. (the latest release will automatically downloaded and loaded)
+- `-w`: show welcome screen on new tabs.
 
 
 ## Completions
@@ -57,15 +56,19 @@ curl https://gist.githubusercontent.com/marcomontalbano/7c48f6756e4e4133c30fdb8e
 
 Below a list of utilities that you can use on command line or your own .bash_profile.
 
-- **bash_profile__version** - get current version.
-
-- **bash_profile__reload** - reload your `.bash_profile`.
-
-- **bash_profile__update** - update the `bash_profile` project with latest changes. Is "just" a `git pull` :smile:
+- **bash_profile__path** - get project path.
 
 - **bash_profile__cd** - `cd` to the `bash_profile` folder. Something like `cd ~/bash_profile`
 
-- **console__set_title** - set a console title.
+- **bash_profile__version** - get current version.
+
+- **bash_profile__reload** - reload the project.
+
+- **bash_profile__reload_all** - reload your own `.bash_profile` or `.bashrc`.
+
+- **bash_profile__update** - update the `bash_profile` project with latest changes. Is "just" a `git pull` :smile:
+
+- **console__set_title** - set a console title. _(only for OS X)_
 
 - **cli__is_installed** - check if a program is installed on your system. *`cli__is_installed node` will return `true` if node is installed on your system, `false` otherwise.*
 
@@ -73,7 +76,7 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 
 - **proxy__unset** - simply unset the command line proxy.
 
-- **java__use_jdk** - if you work with different version of JDK, you can easily switch with `java__use_jdk 1.8`. (only for OS X)
+- **java__use_jdk** - if you work with different version of JDK, you can easily switch with `java__use_jdk 1.8`. _(only for OS X)_
 
 
 ## PS1 customization

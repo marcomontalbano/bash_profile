@@ -68,31 +68,18 @@ alias flush__dns="dscacheutil -flushcache"
 
 
 
-#####################
-### SPLASH SCREEN ###
-#####################
-
-function bash_profile__splash_screen {
-    echo;
-    echo -e "    _             _                     __ _ _         "
-    echo -e "   | |__  __ _ __| |_     _ __ _ _ ___ / _(_) |___     "
-    echo -e "  _| '_ \/ _\` (_-\< ' \   | '_ \\ '_/ _ \  _| | / -_) "
-    echo -e " (_)_.__/\__,_/__/_||_|__| .__/_| \___/_| |_|_\___|    "
-    echo -e "                     |___|_|                           "
-    echo -e "                                              "$(bash_profile__version)
-    echo;
-    echo;
-}
-
-
-
 ###############
 ### UTILITY ###
 ###############
 
-#
+# bash_prifile get project path
 function bash_profile__path {
     echo $(dirname "$BASH_SOURCE")
+}
+
+# bash_profile move to project folder
+function bash_profile__cd {
+    cd $(bash_profile__path)
 }
 
 # bash_profile get version
@@ -100,11 +87,15 @@ function bash_profile__version {
     cat ~/bash_profile/VERSION
 }
 
-# bash_profile reload profile
+# bash_profile reload the project
 function bash_profile__reload {
-    #[[ -r "$HOME/.bash_profile" ]] && source ~/.bash_profile
-    #[[ -r "$HOME/.bashrc" ]] && source ~/.bashrc
     source $(bash_profile__path)/.bash_profile
+}
+
+# bash_profile reload your own .bash_profile or .bashrc
+function bash_profile__reload_all {
+    [[ -r "$HOME/.bash_profile" ]] && source ~/.bash_profile
+    [[ -r "$HOME/.bashrc" ]] && source ~/.bashrc
 }
 
 # bash_profile update
@@ -120,11 +111,6 @@ function bash_profile__update {
     else
         touch $(bash_profile__path)/UPDATED
     fi
-}
-
-# bash_profile move to project folder
-function bash_profile__cd {
-    cd $(bash_profile__path)
 }
 
 # set the console title (OSX Terminal only)
@@ -278,6 +264,24 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 
 
 
+#####################
+### SPLASH SCREEN ###
+#####################
+
+function __bash_profile__splash_screen {
+    echo;
+    echo -e "    _             _                     __ _ _         "
+    echo -e "   | |__  __ _ __| |_     _ __ _ _ ___ / _(_) |___     "
+    echo -e "  _| '_ \/ _\` (_-\< ' \   | '_ \\ '_/ _ \  _| | / -_) "
+    echo -e " (_)_.__/\__,_/__/_||_|__| .__/_| \___/_| |_|_\___|    "
+    echo -e "                     |___|_|                           "
+    echo -e "                                              "$(bash_profile__version)
+    echo;
+    echo;
+}
+
+
+
 ###############
 ### GETOPTS ###
 ###############
@@ -286,7 +290,7 @@ OPTIND=1
 while getopts "wu" OPT; do
     case $OPT in
         w)
-            bash_profile__splash_screen
+            __bash_profile__splash_screen
             ;;
         u)
             (bash_profile__update > /dev/null 2>&1 &)
