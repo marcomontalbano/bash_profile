@@ -287,13 +287,16 @@ function __bash_profile__splash_screen {
 ###############
 
 OPTIND=1
-while getopts "wu" OPT; do
+while getopts "wup:" OPT; do
     case $OPT in
         w)
             __bash_profile__splash_screen
             ;;
         u)
             (bash_profile__update > /dev/null 2>&1 &)
+            ;;
+        p)
+            proxy__set $OPTARG
             ;;
     esac
 done

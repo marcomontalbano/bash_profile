@@ -25,11 +25,12 @@ Open and modify your `~/.bash_profile` on OS X and Windows or `~/.bashrc` on Ubu
 
 ```sh
 # https://github.com/marcomontalbano/bash_profile
-source ~/bash_profile/.bash_profile -u
+source ~/bash_profile/.bash_profile -p <http_proxy> -u
 ```
 
 ### Options
 
+- `-p <http-proxy>`: combined with `-u`, you can use self-update behind proxy.
 - `-u`: enables self-update for bash_profile. (the latest release will automatically downloaded and loaded)
 - `-w`: show welcome screen on new tabs.
 
