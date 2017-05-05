@@ -46,6 +46,7 @@ function __git__unpushed {
     fi
 }
 
+
 # check & get if you need to create a new branch
 function __git__new_branch {
     brinfo=$(git branch -r | grep "$(__git__remote_name)/"$(__git__branch_name))
@@ -66,7 +67,7 @@ function __git__status {
     fi
     
     if [[ $unpulled != "" && $unpushed != "" ]]; then
-        echo "("$COLOR_RED"'git push $(__git__remote_name) $(__git__branch_name) --force'"$COLOR_YELLOW" required)"
+        echo "("$COLOR_RED"'git push $(__git__remote_name) $(__git__branch_name) --force-with-lease'"$COLOR_YELLOW" required)"
     else
         if [[ $unpulled != "" ]]; then
             echo $unpulled
