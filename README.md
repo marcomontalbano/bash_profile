@@ -25,7 +25,7 @@ Open and modify your `~/.bash_profile` on OS X and Windows or `~/.bashrc` on Ubu
 
 ```sh
 # https://github.com/marcomontalbano/bash_profile
-source ~/bash_profile/.bash_profile -p <http_proxy> -u
+source ~/bash_profile/.bash_profile -u
 ```
 
 ### Options
@@ -69,7 +69,7 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 
 - **bash_profile__update** - update the `bash_profile` project with latest changes. Is "just" a `git pull` :smile:
 
-- **console__set_title** - set a console title. _(only for OS X)_
+- **console__set_title** - set a console title. _(only for OS X and Windows)_
 
 - **cli__is_installed** - check if a program is installed on your system. *`cli__is_installed node` will return `true` if node is installed on your system, `false` otherwise.*
 

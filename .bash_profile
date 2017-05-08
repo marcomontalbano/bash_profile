@@ -101,7 +101,7 @@ function bash_profile__reload_all {
 # bash_profile update
 function bash_profile__update {
     message=`git -C $(bash_profile__path) checkout . && git -C $(bash_profile__path) pull -r`
-    if [[ $message == *"is up to date"* ]]; then
+    if [[ $message == *"is up to date"* || $message == *"up-to-date"* ]]; then
         echo;
         echo -e "$COLOR_ALT_CYAN""----------------------"
         echo -e "$COLOR_ALT_CYAN""BASH_PROFILE"
@@ -115,7 +115,7 @@ function bash_profile__update {
     fi
 }
 
-# set the console title (OSX Terminal only)
+# set the console title (OSX Terminal and Windows GitBash only)
 function console__set_title {
     title="$1"
     trap 'echo -ne "\033]0;"$title"\007"' DEBUG
@@ -140,6 +140,8 @@ function proxy__set {
     export http_proxy=$HTTP_PROXY
     export https_proxy=$HTTPS_PROXY
 
+    export RSYNC_PROXY=$HTTP_PROXY
+
     if [[ $(cli__is_installed npm) == true ]]; then
         export npm_config_proxy=$HTTP_PROXY
         export npm_config_https_proxy=$HTTPS_PROXY
@@ -160,6 +162,8 @@ function proxy__unset {
     unset HTTPS_PROXY
     unset http_proxy
     unset https_proxy
+
+    unset RSYNC_PROXY
 
     if [[ $(cli__is_installed npm) == true ]]; then
         unset npm_config_proxy
@@ -241,6 +245,8 @@ function __bash_profile__check_updates {
         echo -e "$COLOR_ALT_GREEN""BASH_PROFILE"
         echo -e "$COLOR_GREEN""updated to version $(bash_profile__version)"
         echo -e "$COLOR_ALT_GREEN""---------------------------"
+        echo;
+        echo -e "$COLOR_GREEN""🗣  What's New - https://goo.gl/EKaOnc"
         echo -e "$COLOR_NORMAL"
         rm $(bash_profile__path)/UPDATED
     fi
