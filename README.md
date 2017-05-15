@@ -52,10 +52,7 @@ curl http://svn.apache.org/repos/asf/subversion/trunk/tools/client-side/bash_com
 curl https://gist.githubusercontent.com/marcomontalbano/7c48f6756e4e4133c30fdb8e1fff3100/raw -o ~/bash_profile/.bash_completion_ssh
 ```
 
-
-## Utilities
-
-Below a list of utilities that you can use on command line or your own .bash_profile.
+## Bash Profile
 
 - **bash_profile__path** - get project path.
 
@@ -69,6 +66,10 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 
 - **bash_profile__update** - update the `bash_profile` project with latest changes. Is "just" a `git pull` :smile:
 
+## Utilities
+
+Below a list of utilities that you can use on command line or your own .bash_profile.
+
 - **console__set_title** - set a console title. _(only for OS X and Windows)_
 
 - **cli__is_installed** - check if a program is installed on your system. *`cli__is_installed node` will return `true` if node is installed on your system, `false` otherwise.*
@@ -76,6 +77,12 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 - **proxy__set** - simply set the command line proxy. It works also for npm and apm, if you use them. *usage: `proxy__set http://domain:8080` or `proxy__set http://domain:8080 https://domain:8080`*
 
 - **proxy__unset** - simply unset the command line proxy.
+
+- **network__get_ip** - get ip address _(e.g. 192.168.0.5)_
+
+- **network__get_gateway** - get gateway address _(e.g. 192.168.0.1)_
+
+- **network__get_broadcast** - get broadcast address _(e.g. 192.168.0.1)_
 
 - **java__use_jdk** - if you work with different version of JDK, you can easily switch with `java__use_jdk 1.8`. _(only for OS X)_
 

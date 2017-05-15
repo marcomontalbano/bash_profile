@@ -1,0 +1,132 @@
+###############
+### UTILITY ###
+###############
+
+# set the console title (OSX Terminal and Windows GitBash only)
+function console__set_title {
+    title="$1"
+    trap 'echo -ne "\033]0;"$title"\007"' DEBUG
+}
+
+# check if a program is installed. (true or false returns)
+function cli__is_installed {
+    local is_installed=true
+    type $1 >/dev/null 2>&1 || { local is_installed=false; }
+    echo "$is_installed"
+}
+
+# proxy - check
+function proxy__check {
+    if [[ -z "$HTTP_PROXY" && -z "$HTTPS_PROXY" ]]; then
+        echo false
+    else
+        echo "$HTTP_PROXY $HTTPS_PROXY"
+    fi
+}
+
+# proxy - set
+function proxy__set {
+    export HTTP_PROXY=$1
+    export HTTPS_PROXY=$HTTP_PROXY
+
+    if [[ -n $2 ]]; then
+        export HTTPS_PROXY=$2
+    fi
+
+    export http_proxy=$HTTP_PROXY
+    export https_proxy=$HTTPS_PROXY
+
+    export RSYNC_PROXY=$HTTP_PROXY
+
+    if [[ $(cli__is_installed npm) == true ]]; then
+        export npm_config_proxy=$HTTP_PROXY
+        export npm_config_https_proxy=$HTTPS_PROXY
+
+        #npm config set proxy $HTTP_PROXY
+        #npm config set https-proxy $HTTPS_PROXY
+    fi
+
+    #if [[ $(cli__is_installed apm) == true ]]; then
+    #    apm config set http-proxy $HTTP_PROXY
+    #    apm config set https-proxy $HTTPS_PROXY
+    #fi
+}
+
+# proxy - unset
+function proxy__unset {
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset http_proxy
+    unset https_proxy
+
+    unset RSYNC_PROXY
+
+    if [[ $(cli__is_installed npm) == true ]]; then
+        unset npm_config_proxy
+        unset npm_config_https_proxy
+
+        #npm config delete proxy
+        #npm config delete https-proxy
+    fi
+
+    #if [[ $(cli__is_installed apm) == true ]]; then
+    #    apm config delete http-proxy
+    #    apm config delete https-proxy
+    #fi
+}
+
+# get ip address
+function network__get_ip {
+    case "$(uname -s)" in
+        Darwin)
+            echo $(ifconfig | grep 'inet.*cast' | cut -d' ' -f2)
+            ;;
+        Linux)
+            echo $(ifconfig | grep 'inet.*cast' | cut -d':' -f2 | cut -d' ' -f1)
+            ;;
+        MINGW*)
+            echo $(ipconfig | grep "IPv4 Address" | cut -d':' -f2 | sed 's/^ *//;s/ *$//')
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}
+
+# get gateway address
+function network__get_gateway {
+    case "$(uname -s)" in
+        Darwin)
+            echo $(netstat -nr | grep "default" | head -n1 | awk '{print $2}')
+            ;;
+        Linux)
+            echo $(netstat -nr | grep "0.0.0.0" | head -n1 | awk '{print $2}')
+            ;;
+        MINGW*)
+            echo $(netstat -nr | grep "0.0.0.0" | head -n1 | awk '{print $3}')
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}
+
+# get broadcast address
+function network__get_broadcast {
+    case "$(uname -s)" in
+        Darwin)
+            echo $(ifconfig | grep 'inet.*cast' | cut -d' ' -f6)
+            ;;
+        Linux)
+            echo $(ifconfig | grep 'inet.*cast' | cut -d':' -f3 | cut -d' ' -f1)
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}
+
+# set JAVA_HOME ( ex:. java__use_jdk 1.8 )
+function java__use_jdk {
+    export JAVA_HOME=$(/usr/libexec/java_home -v $@)
+}
