@@ -191,7 +191,7 @@ while getopts "wup:" OPT; do
             __bash_profile__splash_screen
             ;;
         u)
-            #(bash_profile__update > /dev/null 2>&1 &)
+            (bash_profile__update > /dev/null 2>&1 &)
             ;;
         p)
             proxy__set $OPTARG
