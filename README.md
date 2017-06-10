@@ -10,7 +10,6 @@ This is a collection of bash utilities. It contains:
 - [x] Bash Completions for Git, Svn, SSH and SFTP.
 - [x] set/unset proxy faster.
 - [x] Updatable `bash_profile` project.
-- [ ] Pygmentize
 
 
 ## Get started
@@ -52,7 +51,9 @@ curl http://svn.apache.org/repos/asf/subversion/trunk/tools/client-side/bash_com
 curl https://gist.githubusercontent.com/marcomontalbano/7c48f6756e4e4133c30fdb8e1fff3100/raw -o ~/bash_profile/.bash_completion_ssh
 ```
 
-## Bash Profile
+## Useful Commands
+
+### Bash Profile
 
 - **bash_profile__path** - get project path.
 
@@ -66,7 +67,7 @@ curl https://gist.githubusercontent.com/marcomontalbano/7c48f6756e4e4133c30fdb8e
 
 - **bash_profile__update** - update the `bash_profile` project with latest changes. Is "just" a `git pull` :smile:
 
-## Utilities
+### General
 
 Below a list of utilities that you can use on command line or your own .bash_profile.
 
@@ -85,6 +86,10 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 - **network__get_broadcast** - get broadcast address _(e.g. 192.168.0.1)_
 
 - **java__use_jdk** - if you work with different version of JDK, you can easily switch with `java__use_jdk 1.8`. _(only for OS X)_
+
+### Git
+
+- **git__update_date** - update last commit with current date. _(only for OS X)_
 
 
 ## PS1 customization

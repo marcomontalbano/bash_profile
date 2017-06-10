@@ -84,3 +84,11 @@ function gitify {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
     echo -e "\n[GIT $(__git__remote_name) $(__git__dirty)] $(__git__status)"
 }
+
+#####################
+### GIT - UTILITY ###
+#####################
+
+function git__update_date {
+    git commit --amend --date "`date -R`" --no-edit
+}
