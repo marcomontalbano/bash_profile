@@ -90,5 +90,5 @@ function gitify {
 #####################
 
 function git__update_date {
-    git commit --amend --date "`date -R`" --no-edit
+    git commit --amend --date "`date $@ -R`" --no-edit
 }
