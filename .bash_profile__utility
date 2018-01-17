@@ -46,6 +46,11 @@ function proxy__set {
         #npm config set https-proxy $HTTPS_PROXY
     fi
 
+    if [[ $(cli__is_installed git) == true ]]; then
+        git config --global http.proxy  $HTTP_PROXY
+        git config --global https.proxy $HTTPS_PROXY
+    fi
+
     #if [[ $(cli__is_installed apm) == true ]]; then
     #    apm config set http-proxy $HTTP_PROXY
     #    apm config set https-proxy $HTTPS_PROXY
@@ -67,6 +72,11 @@ function proxy__unset {
 
         #npm config delete proxy
         #npm config delete https-proxy
+    fi
+
+    if [[ $(cli__is_installed git) == true ]]; then
+        git config --global --unset http.proxy
+        git config --global --unset https.proxy
     fi
 
     #if [[ $(cli__is_installed apm) == true ]]; then
