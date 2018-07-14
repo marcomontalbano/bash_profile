@@ -26,7 +26,6 @@ alias ..='cd ..'
 alias ...='cd ...'
 alias sl='ls'
 alias c='clear'
-alias /='cd /'
 alias matrix='LC_ALL=C tr -c "[:digit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock | GREP_COLOR="1;32" grep --color "[^ ]"'
 alias lastchanges='find . -type f -print0 | xargs -0 stat -f "%m %N" | sort -rn | cut -f2- -d" "'
 
