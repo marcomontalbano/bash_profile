@@ -89,7 +89,7 @@ Below a list of utilities that you can use on command line or your own .bash_pro
 
 ### Git
 
-- **git__update_date** - update last commit with current date. _(only for OS X)_
+- **git__update_date** - update last commit with current date. *usage: `git__update_date` or `git__update_date -v -5H`* _(only for OS X)_
 
 
 ## PS1 customization
