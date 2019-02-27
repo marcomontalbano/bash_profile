@@ -20,7 +20,7 @@ Clone this project in your home folder `~`.
 cd ~ && git clone https://github.com/marcomontalbano/bash_profile.git
 ```
 
-Open and modify your `~/.bash_profile` on OS X and Windows or `~/.bashrc` on Ubuntu, adding the following script.
+Open and modify your `$HOME/.bash_profile` on OS X and Windows or `$HOME/.bashrc` on Ubuntu, adding the following script.
 
 ```sh
 # https://github.com/marcomontalbano/bash_profile
