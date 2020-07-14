@@ -11,6 +11,7 @@ This is a collection of bash utilities. It contains:
 - [x] set/unset proxy faster.
 - [x] Updatable `bash_profile` project.
 
+[![asciicast](https://asciinema.org/a/MEknLqkjqFCRHg8kQoT5G84r6.svg)](https://asciinema.org/a/MEknLqkjqFCRHg8kQoT5G84r6)
 
 ## Get started
 
